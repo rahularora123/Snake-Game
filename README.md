@@ -1,2 +1,2 @@
-# Snake-Game
+# snakegame
 It is a simple console game
