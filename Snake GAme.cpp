@@ -26,28 +26,15 @@ struct Food
 	char var;
 }*food;
 
-int input(char *s,int n,int p)
-{
-	cout<<n<<endl;
-	char c='0';
-	while(n>0)
-	{
-		int d=n%10;
-		s[p++]=d+48;
-		n=n/10;
-	}
-	return p;
-}
-
 void pri(struct snake *head,Food *food,int score)
 {
-	char *mat[41];
+	char *mat[41];     //doubt
 	for(int i=0;i<41;i++)
 	{
-		mat[i]=(char *)calloc(41,sizeof(char));
+		mat[i]=(char *)calloc(41,sizeof(char));   //doubt
 	}
 	snake *t=head;
-
+	
 	for(int i=0;i<41;i++)
 	{
 		for(int j=0;j<41;j++)
@@ -74,14 +61,6 @@ void pri(struct snake *head,Food *food,int score)
 		printf("\n");
 	}
 	printf("Score=: %d\n",score);
-	for(int d=0;d<41;d++)
-	{
-		delete [] mat[d];
-	}
-
-
-
-
 
 }
 
@@ -102,14 +81,14 @@ struct snake* create(struct snake *head)
 
 	if(n2->y>39)
 	n2->y=1;
-
+		
 	n1->var='#';
 	n2->var='#';
 	head->next=n1;
 	n1->next=n2;
 	n2->next=NULL;
 	return head;
-
+	
 }
 
 struct Food * generateFood(snake *head,Food *food)
@@ -146,7 +125,7 @@ void move(snake *head,int a,int b)
 	y2=y1;
 	head->x=a;
 	head->y=b;
-
+	
 	while(t1!=NULL)
 	{
 		x1=t1->x;
@@ -171,9 +150,9 @@ void increase(snake *head,Food *food,int &score)
 	temp->next=head->next;
 	//head->var='#';
 	head->next=temp;
-
+	
 	food=generateFood(head,food);
-
+	
 }
 
 int cut(int x1,int y1,snake *head)
@@ -191,16 +170,9 @@ int cut(int x1,int y1,snake *head)
 	}
 	return fl;
 	}
-
-
-
-
-	
 int main()
-{
-
-
-	int score=0;
+{   
+    int score=0;
 	head=create(head);
 	food=new Food();
 	food=generateFood(head,food);
@@ -213,26 +185,26 @@ int main()
 		while(head->x!=food->x || head->y!=food->y)
 			{
 				int x1,y1;
-
+		
 				if(kbhit())
 				KB_CODE=getch();
 				//	scanf("%c",&c);
 				switch(KB_CODE)
 				{
-					case KB_UP:
+					case KB_UP: 
 						{
 					x1=head->x-1;
 					if(x1<1)
 					x1=39;
 					y1=head->y;
-					if(x1==head->next->x && y1==head->next->y)
+					if(x1==head->next->x && y1==head->next->y)    //////////doubt
 					{
 						break;
 					}
 					else if(x1==food->x && y1==food->y)
 					{
 						increase(head,food,score);
-
+						
 						break;
 					}
 					else
@@ -242,14 +214,14 @@ int main()
 					{
 						printf("Game Over");
 						break;
-						}
+						}	
 					else
 					{
 							move(head,x1,y1);
-							break;
+							break;	
 					}
 					}
-
+					
 				}
 					case KB_LEFT:
 						{
@@ -264,7 +236,7 @@ int main()
 					else if(x1==food->x && y1==food->y)
 					{
 						increase(head,food,score);
-
+						
 						break;
 					}
 					else
@@ -274,10 +246,10 @@ int main()
 					{
 						printf("Game Over");
 						break;
-						}
+						}	
 					move(head,x1,y1);
-
-					break;
+					
+					break;	
 					}
 				}
 					case KB_RIGHT:
@@ -293,7 +265,7 @@ int main()
 					else if(x1==food->x && y1==food->y)
 					{
 						increase(head,food,score);
-
+						
 						break;
 					}
 					else
@@ -303,12 +275,12 @@ int main()
 					{
 						printf("Game Over");
 						break;
-						}
+						}	
 					move(head,x1,y1);
-
+					
 					break;
 					}
-				}
+				}	
 					case KB_DOWN:
 						{
 					x1=head->x+1;
@@ -322,7 +294,7 @@ int main()
 					else if(x1==food->x && y1==food->y)
 					{
 						increase(head,food,score);
-
+					
 						break;
 					}
 					else
@@ -332,16 +304,16 @@ int main()
 					{
 						printf("Game Over");
 						break;
-						}
+						}	
 					move(head,x1,y1);
-
-					break;
+					
+					break;	
 					}
-				}
-
+				}	
+				
 				}
 				Sleep(200);
-				system("cls");
+				system("cls");   //doubt 
 				pri(head,food,score);
 				if(flag==0 || KB_CODE==KB_ESCAPE)
 				{
@@ -353,41 +325,16 @@ int main()
 					else if(KB_CODE==KB_ESCAPE)
 					{
 						printf("Do You want to Save\n1.Yes\n3.Exit\n");
-
+						
 						scanf("%d",&choice);
-						if(choice==1)
-						{
-							save(head,food);
-							printf("\nGame Saved\n");
-							break;
-						}
 						if(choice==3)
 						{
 							break;
 						}
 					}
-
+				
 				}
 			}
-		head=NULL;
-		if(head==NULL)
-		{
-			printf("\nHead is now NULL\n");
-		}
-		food->var='z';
-		food->x=0;
-		food->y=0;
-		printf("Reset Food: %c %d %d\n",food->var,food->x,food->y);
-		head=load(head,food);
-		printf("Loaded Food: %c %d %d\n",food->var,food->x,food->y);
-		snake *temp=head;
-		while(temp!=NULL)
-		{
-			cout<<temp->var<<" "<<temp->x<<" "<<temp->y<<endl;
-			temp=temp->next;
-		}
-
 
 	return 0;
 }
-
