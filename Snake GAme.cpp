@@ -28,13 +28,12 @@ struct Food
 
 void pri(struct snake *head,Food *food,int score)
 {
-	char *mat[41];     //doubt
+	char *mat[41];    
 	for(int i=0;i<41;i++)
 	{
-		mat[i]=(char *)calloc(41,sizeof(char));   //doubt
+		mat[i]=(char *)calloc(41,sizeof(char));   
 	}
 	snake *t=head;
-	
 	for(int i=0;i<41;i++)
 	{
 		for(int j=0;j<41;j++)
@@ -148,7 +147,6 @@ void increase(snake *head,Food *food,int &score)
 	head->y=food->y;
 	temp->var='#';
 	temp->next=head->next;
-	//head->var='#';
 	head->next=temp;
 	
 	food=generateFood(head,food);
@@ -188,7 +186,6 @@ int main()
 		
 				if(kbhit())
 				KB_CODE=getch();
-				//	scanf("%c",&c);
 				switch(KB_CODE)
 				{
 					case KB_UP: 
@@ -197,7 +194,7 @@ int main()
 					if(x1<1)
 					x1=39;
 					y1=head->y;
-					if(x1==head->next->x && y1==head->next->y)    //////////doubt
+					if(x1==head->next->x && y1==head->next->y)    
 					{
 						break;
 					}
@@ -241,7 +238,7 @@ int main()
 					}
 					else
 					{
-				flag=cut(x1,y1,head);
+				        flag=cut(x1,y1,head);
 					if(flag!=1)
 					{
 						printf("Game Over");
@@ -313,7 +310,7 @@ int main()
 				
 				}
 				Sleep(200);
-				system("cls");   //doubt 
+				system("cls");   
 				pri(head,food,score);
 				if(flag==0 || KB_CODE==KB_ESCAPE)
 				{
@@ -324,7 +321,7 @@ int main()
 					}
 					else if(KB_CODE==KB_ESCAPE)
 					{
-						printf("Do You want to Save\n1.Yes\n3.Exit\n");
+						printf("Exit\n");
 						
 						scanf("%d",&choice);
 						if(choice==3)
